@@ -4,3 +4,52 @@
 # we don't use `[build]` because of rust analyzer's build cache invalidation https://github.com/emilk/eframe_template/issues/93
 [target.wasm32-unknown-unknown]
 rustflags = ["--cfg=web_sys_unstable_apis"]
+
+[env]
+AR = "llvm-ar-15"
+CC = "clang-15"
+CXX = "clang++-15"
+
+[profile.dev]
+codegen-units = 16
+debug = true
+debug-assertions = true
+incremental = true
+lto = false
+opt-level = 0
+overflow-checks = true
+panic = "unwind"
+rpath = false
+
+[profile.release]
+codegen-units = 1
+debug = false
+debug-assertions = false
+incremental = false
+lto = true
+opt-level = 3
+overflow-checks = false
+panic = "unwind"
+rpath = false
+strip = "symbols"
+
+[profile.test]
+codegen-units = 16
+debug = 2
+debug-assertions = true
+incremental = true
+lto = false
+opt-level = 0
+overflow-checks = true
+rpath = false
+
+[profile.bench]
+codegen-units = 1
+debug = false
+debug-assertions = false
+incremental = false
+lto = true
+opt-level = 3
+overflow-checks = true
+rpath = false
+strip = "symbols"
